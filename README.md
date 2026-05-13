@@ -839,402 +839,433 @@ DP Contest.
 
 
 
-# Track 3 — Frontend Development (от Junior до Strong Middle)
+# Track 3 — Frontend Development (с нуля → высокий визуальный уровень)
 
-**Длительность:** 12 недель (3 месяца)  
+**Длительность:** 16 недель (4 месяца)  
 **Цель:**
-- Научиться создавать современные веб-интерфейсы
-- Делать красивые и быстрые frontend-приложения
-- Подготовить сильное портфолио
-- Получить уровень для фриланса и Junior/Middle frontend
+- Начать frontend практически с нуля
+- Освоить современные frontend-технологии
+- Научиться создавать красивые интерфейсы и wow-эффекты
+- Делать сложные анимации и 3D-сцены
+- Подготовить сильное визуальное портфолио
 
 **Формат:**  
-6 дней обучения + 1 день практики/полировки
+6 дней обучения + 1 день полировки/отдыха
 
 ---
 
-# Week 1–2 — TypeScript & React Fundamentals
+# Week 1–2 — HTML, CSS & JavaScript Basics
 
-## Day 1 — TypeScript Basics
+## Day 1 — HTML5 Семантика & Структура
 
 ### Темы
-- Типы
-- Interfaces
-- Generics
-- Utility Types
+- Semantic HTML
+- Layout structure
+- Accessibility basics
 
 ---
 
-## Day 2 — React + TypeScript
+## Day 2 — CSS Basics & Flexbox
 
-### Практика
-Создать проект:
-```bash
-Vite + React + TypeScript
-```
-
----
-
-## Day 3 — React Hooks
-
-### Hooks
-- useState
-- useEffect
-- useRef
-
-### Практика
-Todo App с сохранением в `localStorage`.
+### Темы
+- Selectors
+- Box model
+- Flexbox layout
 
 ---
 
-## Day 4 — Custom Hooks & Forms
+## Day 3 — CSS Grid & Responsive Design
 
-### Практика
-Форма регистрации:
-- валидация;
-- обработка ошибок;
-- кастомные hooks.
+### Темы
+- CSS Grid
+- Media Queries
+- Responsive layouts
 
 ---
 
-## Day 5 — React Router v6.4+
+## Day 4 — CSS Animations & Transitions
 
-### Практика
-Многостраничное приложение:
-- routes;
-- nested routes;
-- layouts.
+### Темы
+- Transitions
+- Keyframes
+- Hover animations
+
+---
+
+## Day 5 — JavaScript Basics
+
+### Темы
+- Variables
+- Functions
+- Arrays & Objects
+- DOM basics
 
 ---
 
 ## Day 6 — Практикум
 
 ### Проект
-Красивое одностраничное портфолио.
+Красивая личная страница:
+- визитка;
+- резюме;
+- links page.
 
 ---
 
 ## Day 7 — Полировка
 
 ### Задание
-Добавить:
-- анимации;
+- улучшить UI;
 - адаптивность;
-- hover effects.
+- анимации.
 
 ---
 
-# Week 3–4 — Styling & State Management
+# Week 3–4 — Modern JavaScript & TypeScript
 
-## Day 8 — Tailwind CSS
-
-### Практика
-Полностью сверстать интерфейс на Tailwind.
-
----
-
-## Day 9 — shadcn/ui + Radix UI
-
-### Практика
-Создать:
-- buttons;
-- modals;
-- tables;
-- dialogs.
-
----
-
-## Day 10 — Zustand
+## Day 8 — ES6+
 
 ### Темы
-- Global State
-- Theme
-- User Store
-
-### Практика
-Создать глобальное состояние приложения.
+- Arrow Functions
+- Destructuring
+- Modules
+- Spread/Rest operators
 
 ---
 
-## Day 11 — TanStack Query
+## Day 9 — Async JavaScript
 
 ### Темы
-- API requests
-- Caching
-- Mutations
-
-### Практика
-Интеграция API с React Query.
+- Async/Await
+- Fetch API
+- Promises
 
 ---
 
-## Day 12 — Framer Motion
+## Day 10 — TypeScript Basics
 
-### Практика
-Добавить:
-- animations;
-- hover effects;
-- scroll animations;
-- page transitions.
+### Темы
+- Types
+- Interfaces
+- Functions
+- Arrays
+
+---
+
+## Day 11 — Advanced TypeScript
+
+### Темы
+- Generics
+- Utility Types
+- Advanced interfaces
+
+---
+
+## Day 12 — DOM & Events Deep Dive
+
+### Темы
+- Event listeners
+- Event delegation
+- Dynamic DOM updates
 
 ---
 
 ## Day 13 — Практикум
 
 ### Проект
-AI Chat Interface:
-- красивый UI;
-- анимации;
-- адаптивность.
+Todo App на TypeScript.
 
 ---
 
-## Day 14 — Полировка
-
-### Задание
-Улучшить портфолио.
+## Day 14 — Отдых
 
 ---
 
-# Week 5–6 — Next.js 15 (App Router)
+# Week 5–7 — React + TypeScript
 
-## Day 15 — App Router Basics
+## Day 15 — React Basics & JSX
 
 ### Темы
+- Components
+- JSX
+- Project structure
+
+---
+
+## Day 16 — State & Props
+
+### Темы
+- useState
+- Props
+- Component communication
+
+---
+
+## Day 17 — useEffect & Lifecycle
+
+### Темы
+- Side effects
+- Data fetching
+- Lifecycle logic
+
+---
+
+## Day 18 — React Router v6
+
+### Практика
+Создать:
+- routes;
+- nested routes;
+- layouts.
+
+---
+
+## Day 19 — Custom Hooks
+
+### Практика
+Создать собственные hooks.
+
+---
+
+## Day 20–21 — Практикум
+
+### Проект
+Todo App:
+- routing;
+- filters;
+- localStorage;
+- красивый UI.
+
+---
+
+## Day 22–28 — Большой Проект
+
+### Проект
+Современное личное портфолио:
+- animations;
+- responsive design;
+- dark mode;
+- modern UI.
+
+---
+
+# Week 8–10 — Advanced Styling & Animations
+
+## Day 29 — Tailwind CSS
+
+### Темы
+- Utility-first styling
+- Responsive utilities
+- Layout systems
+
+---
+
+## Day 30 — shadcn/ui + Radix
+
+### Практика
+Создать:
+- dialogs;
+- buttons;
+- dropdowns;
+- cards.
+
+---
+
+## Day 31 — Framer Motion Basics
+
+### Темы
+- Motion components
+- Hover animations
+- Transitions
+
+---
+
+## Day 32 — Framer Motion Advanced
+
+### Темы
+- Scroll animations
+- Gestures
+- Complex transitions
+
+---
+
+## Day 33 — GSAP + ScrollTrigger
+
+### Практика
+Создать:
+- scroll effects;
+- cinematic animations;
+- timeline animations.
+
+---
+
+## Day 34–38 — Практикум
+
+### Проект
+AI Landing Page:
+- wow animations;
+- modern layout;
+- motion effects;
+- responsive design.
+
+---
+
+## Day 39–42 — Практикум
+
+### Проект
+3D Hero Section:
+- React Three Fiber;
+- interactive objects;
+- camera animations.
+
+---
+
+# Week 11–13 — Next.js 15 + 3D Experiences
+
+## Day 43 — Next.js 15 App Router
+
+### Темы
+- App Router
 - Server Components
 - Client Components
 
 ---
 
-## Day 16 — Server Actions & Forms
+## Day 44 — Server Actions & Data Fetching
 
 ### Практика
-Формы без сторонних библиотек.
+- forms;
+- server actions;
+- optimized loading.
 
 ---
 
-## Day 17 — Data Fetching
+## Day 45 — React Three Fiber + Drei
 
 ### Темы
-- Streaming
-- Suspense
-- Optimized Loading
+- 3D scenes
+- Lights
+- Materials
+- Cameras
 
 ---
 
-## Day 18 — Middleware & Authentication
+## Day 46 — Interactive 3D Animations
 
 ### Практика
-Защита маршрутов и auth.
+Создать интерактивную 3D-сцену.
 
 ---
 
-## Day 19 — SEO & Optimization
+## Day 47 — Post-processing Effects
 
 ### Темы
-- Metadata
-- Image Optimization
-- SEO-friendly pages
+- Bloom
+- Depth of field
+- Motion blur
 
 ---
 
-## Day 20 — Практикум
+## Day 48–52 — Большой Проект
 
 ### Проект
-Полноценный Fullstack-проект:
-- AI app;
-- ProfBot Web;
-или
-- dashboard.
-
----
-
-## Day 21 — Отдых
-
----
-
-# Week 7–8 — Advanced Frontend & Performance
-
-## Day 22 — Advanced Animations
-
-### Практика
-Complex page transitions.
-
----
-
-## Day 23 — Performance Optimization
-
-### Темы
-- Code Splitting
-- Lazy Loading
-- Bundle Optimization
-
-### Практика
-Оптимизация большого приложения.
-
----
-
-## Day 24 — Testing
-
-### Инструменты
-- Vitest
-- React Testing Library
-
-### Практика
-Тестирование компонентов.
-
----
-
-## Day 25 — Accessibility (a11y)
-
-### Темы
-- aria attributes
-- keyboard navigation
-- semantic HTML
-
----
-
-## Day 26 — Design Systems
-
-### Практика
-Создать свой mini UI Kit.
-
----
-
-## Day 27 — Практикум
-
-### Проект
-AI Dashboard:
-- charts;
-- tables;
-- analytics;
-- animations.
-
----
-
-## Day 28 — Полировка
-
-### Задание
-Улучшение UX/UI.
-
----
-
-# Week 9–10 — Portfolio Projects
-
-## Day 29–32 — Project 1: Personal Portfolio
-
-### Цели
-- современный дизайн;
-- dark theme;
+Интерактивное 3D Портфолио:
 - animations;
-- responsive layout.
+- 3D scenes;
+- cinematic effects;
+- smooth UX.
 
 ---
 
-## Day 33–36 — Project 2: AI Chat / Task Manager
+## Day 53–56 — Второй Wow-Проект
+
+### Идеи
+- AI Experience;
+- Futuristic Dashboard;
+- Interactive Product Page;
+- 3D AI Interface.
+
+---
+
+# Week 14–16 — Finalization & Portfolio
+
+## Основные задачи
+
+### Полировка
+- animations;
+- UX;
+- performance;
+- responsive fixes.
+
+---
+
+### Главный Portfolio Website
 
 ### Цели
-- интеграция backend;
-- красивый интерфейс;
-- state management;
-- real-time UX.
+- wow-effect;
+- premium UI;
+- motion design;
+- personal branding.
 
 ---
 
-## Day 37–39 — Project 3: E-commerce / ProfBot Web
+### Deployment
 
-### Цели
-- полноценное приложение;
-- экономика/магазин;
-- dashboard;
-- authentication.
+### Платформа
+- Vercel
 
 ---
 
-## Day 40 — README & Polish
+### Documentation
 
 ### Задание
 Подготовить:
 - README;
+- project cases;
 - screenshots;
-- deployment links;
-- project descriptions.
-
----
-
-# Week 11–12 — Deployment & Freelance Preparation
-
-## Day 41–43 — Deployment
-
-### Платформы
-- Vercel
-- Railway
-
-### Задание
-Задеплоить все проекты.
-
----
-
-## Day 44–45 — Code Review & Refactoring
-
-### Задание
-- улучшить архитектуру;
-- очистить код;
-- улучшить performance.
-
----
-
-## Day 46–48 — Resume & Portfolio
-
-### Задание
-Создать:
-- frontend resume;
-- финальный portfolio website;
-- project showcase.
+- demo videos.
 
 ---
 
 # Финальный Чек-лист Track 3
 
-- [ ] Уверенно владею TypeScript и React
-- [ ] Свободно работаю с Next.js App Router
-- [ ] Умею делать красивые UI/UX
-- [ ] Использую Tailwind + shadcn/ui + Framer Motion
-- [ ] Есть минимум 3 сильных проекта
-- [ ] Понимаю performance optimization
-- [ ] Готов брать frontend-заказы на фрилансе
+- [ ] Уверенно владею TypeScript + React + Next.js 15
+- [ ] Создаю современные адаптивные интерфейсы
+- [ ] Использую Tailwind CSS + shadcn/ui
+- [ ] Делаю сложные анимации на Framer Motion и GSAP
+- [ ] Работаю с 3D в браузере через React Three Fiber
+- [ ] Есть минимум 3–4 визуально сильных проекта
+- [ ] Умею создавать wow-интерфейсы для клиентов и портфолио
 
 ---
 
 # Основные Технологии
 
 ## Frontend
-- React
+- HTML5
+- CSS3
+- JavaScript
 - TypeScript
+- React
 - Next.js 15
+
+## Styling & UI
 - Tailwind CSS
 - shadcn/ui
 - Radix UI
 
-## State & Data
-- Zustand
-- TanStack Query
-
-## UI/UX
+## Animations
 - Framer Motion
-- Responsive Design
-- Accessibility (a11y)
+- GSAP
+- ScrollTrigger
 
-## Testing & Performance
-- Vitest
-- React Testing Library
-- Lazy Loading
-- Code Splitting
+## 3D
+- React Three Fiber
+- Drei
+- Post-processing
 
 ## Deployment
 - Vercel
-- Railway
-
 
 
 # Track 4 — Backend + ИИ Инженерия

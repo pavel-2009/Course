@@ -17,6 +17,8 @@
 
 ## Day 1 — Установка Ubuntu Server
 
+# Already done
+
 ### Темы
 - Установка Ubuntu Server
 - Базовая настройка системы
@@ -32,6 +34,8 @@ sudo apt update && sudo apt upgrade -y
 ---
 
 ## Day 2 — Файловая система и навигация
+
+# Already done
 
 ### Команды
 ```bash

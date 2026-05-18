@@ -51,6 +51,8 @@ touch
 
 ## Day 3 — Работа с файлами
 
+# Already done
+
 ### Команды
 ```bash
 cp
@@ -65,6 +67,8 @@ vim
 ---
 
 ## Day 4 — Поиск и фильтрация
+
+# Already done
 
 ### Команды
 ```bash

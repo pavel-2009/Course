@@ -83,6 +83,8 @@ whereis
 
 ## Day 5 — Права доступа и пользователи
 
+# Already done
+
 ### Команды
 ```bash
 chmod

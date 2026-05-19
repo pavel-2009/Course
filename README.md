@@ -103,6 +103,8 @@ su -
 
 ## Day 6 — Процессы и логи
 
+# Already done
+
 ### Команды
 ```bash
 ps aux

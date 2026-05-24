@@ -47,6 +47,20 @@ mkdir -p
 touch
 ```
 
+## Шпора
+
+```bash
+pwd                    # где я сейчас
+ls -la                 # всё, включая скрытые
+ls -lah                # с удобными размерами
+tree -L 2              # структура папок (до 2 уровней)
+cd /path               # перейти
+cd ~                   # домой
+cd -                   # предыдущая папка
+mkdir -p dir1/dir2/dir3 # создать вложенные
+touch file.txt         # создать пустой файл
+```
+
 ---
 
 ## Day 3 — Работа с файлами
@@ -64,6 +78,21 @@ nano
 vim
 ```
 
+## Шпора
+
+```bash
+cp file.txt /backup/             # копировать
+cp -r folder/ /backup/           # копировать папку
+mv old.txt new.txt               # переименовать / переместить
+rm file.txt                      # удалить
+rm -rf folder/                   # удалить папку (осторожно!)
+cat file.txt                     # посмотреть содержимое
+less file.txt                    # удобно листать
+head -n 20 file.txt              # первые 20 строк
+tail -n 20 file.txt              # последние 20 строк
+tail -f file.log                 # следить в реальном времени
+```
+
 ---
 
 ## Day 4 — Поиск и фильтрация
@@ -77,6 +106,24 @@ grep -r
 locate
 which
 whereis
+```
+
+## Шпора
+```bash
+# find — самый мощный
+find . -name "*.py"
+find . -name "*.log" -mtime -7          # изменены за 7 дней
+find . -size +50M                       # больше 50 МБ
+
+# grep
+grep -r "def main" . --include="*.py"
+grep -rn "TODO" .                       # с номером строки
+grep -i "error" app.log                 # без учёта регистра
+
+# Быстрые
+which python3
+whereis python3
+locate nginx.conf                       # нужен updatedb
 ```
 
 ---
@@ -97,6 +144,30 @@ su -
 ### Файлы
 ```text
 /etc/passwd
+```
+
+## Шпора
+
+```bash
+# Права (chmod):
+chmod 644 file.txt          # rw-r--r--
+chmod 755 script.sh         # rwx-r-xr-x
+chmod u+x script.sh         # добавить execute владельцу
+chmod -R 755 folder/        # рекурсивно
+
+# Владельцы (chown):
+chown user:group file.txt
+chown -R pavlov:pavlov project/
+
+# Пользователи:
+sudo adduser username
+su - username               # полностью войти под пользователя
+sudo -u username command    # выполнить от имени
+
+# Просмотр:
+ls -l                       # смотрим права
+cat /etc/passwd | grep pavlov
+id                          # кто я
 ```
 
 ---
@@ -177,12 +248,34 @@ ip a
 
 ## Day 11 — Пайпы и перенаправления
 
+# Already done
+
 ### Команды
 ```bash
 command > file 2>&1
 tee
 xargs
 ```
+
+## Шпора
+
+```bash
+# 1. Поиск TODO по проекту (твой финальный вариант)
+find . -type f -name "*.py" -not -path "*/venv/*" -not -path "*/env/*" -exec grep -inH "TODO" {} + | sort
+
+# 2. Поиск любого слова в коде
+grep -rn --include="*.py" "some_function" .
+
+# 3. Сколько строк кода в проекте
+find . -name "*.py" -not -path "*/venv/*" | xargs wc -l | sort -nr
+
+# 4. Какие файлы изменились за сегодня
+find . -name "*.py" -mtime -1
+
+# 5. Очистка кэша и временных файлов
+find . \( -name "__pycache__" -o -name "*.pyc" -o -name "*.pyo" \) -delete
+
+```bash
 
 ---
 

@@ -281,8 +281,25 @@ find . \( -name "__pycache__" -o -name "*.pyc" -o -name "*.pyo" \) -delete
 
 ## Day 12 — curl + jq
 
+# Already done
+
 ### Задание
 Получить данные с API и красиво вывести.
+
+## Шпора
+```bash
+# 1. Красивый вывод
+curl -s URL | jq .
+
+# 2. Извлечь несколько полей
+curl -s URL | jq '{name, email, id}'
+
+# 3. С заголовками (часто нужно)
+curl -s -H "Authorization: Bearer token" URL | jq .
+
+# 4. POST запрос
+curl -s -X POST -d '{"title":"Test"}' -H "Content-Type: application/json" URL | jq .
+```
 
 ---
 

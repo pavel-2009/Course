@@ -275,7 +275,7 @@ find . -name "*.py" -mtime -1
 # 5. Очистка кэша и временных файлов
 find . \( -name "__pycache__" -o -name "*.pyc" -o -name "*.pyo" \) -delete
 
-```bash
+```
 
 ---
 

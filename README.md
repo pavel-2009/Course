@@ -305,9 +305,28 @@ curl -s -X POST -d '{"title":"Test"}' -H "Content-Type: application/json" URL | 
 
 ## Day 13 — cron & systemd timers
 
+# Already done
+
 ### Задание
 Настроить автозапуск скрипта.
 
+```bash
+# Редактирование crontab:
+crontab -e              # редактировать задачи текущего пользователя
+crontab -l              # посмотреть текущие задачи
+crontab -r              # удалить все задачи
+
+# Формат cron:
+минута  час  день_месяца  месяц  день_недели   команда
+
+# Лучшие практики для cron
+
+# Правильный шаблон (рекомендуется)
+0 2 * * * /bin/bash /home/pavel/script.sh >> /home/pavel/script.log 2>&1
+
+# Для Python-скриптов
+0 3 * * * /usr/bin/python3 /home/pavel/cleanup.py >> /home/pavel/cleanup.log 2>&1
+```
 ---
 
 ## Day 14 — Практика

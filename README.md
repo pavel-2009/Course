@@ -351,6 +351,8 @@ crontab -r              # удалить все задачи
 
 ## Day 16 — IP-адресация и Subnetting
 
+# Already done
+
 ### Задание
 Решить 10 задач по CIDR/subnetting.
 

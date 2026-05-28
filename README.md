@@ -360,6 +360,8 @@ crontab -r              # удалить все задачи
 
 ## Day 17 — ARP, ICMP и TCP Handshake
 
+# Already done
+
 ### Инструменты
 ```bash
 tcpdump

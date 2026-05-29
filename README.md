@@ -373,6 +373,8 @@ ping
 
 ## Day 18 — Маршрутизация и NAT
 
+# Already done
+
 ### Команды
 ```bash
 ip route

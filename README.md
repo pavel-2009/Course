@@ -386,6 +386,8 @@ ip route
 
 ## Day 19 — DNS
 
+# Already done
+
 ### Инструменты
 ```bash
 dig
@@ -400,6 +402,43 @@ dig
 Настроить `dnsmasq`.
 
 ---
+
+# Шпора
+```bash
+# 1. dig
+dig google.com +short
+dig example.com MX
+dig google.com @8.8.8.8
+dig google.com +trace
+dig -x 192.168.1.50
+
+# 2. Файлы
+/etc/hosts
+/etc/resolv.conf
+
+# 3. /etc/hosts
+127.0.0.1   localhost
+192.168.1.50  nas.home
+192.168.1.1   router.home
+
+# 4. dnsmasq
+sudo apt install dnsmasq -y
+
+# /etc/dnsmasq.conf
+port=53
+no-resolv
+server=1.1.1.1
+server=8.8.8.8
+cache-size=500
+domain=home
+address=/nas.home/192.168.1.50
+address=/router.home/192.168.1.1
+
+# Команды
+sudo systemctl restart dnsmasq
+sudo ss -ltnp | grep 53
+dig @127.0.0.1 nas.home
+```
 
 ## Day 20 — iptables / nftables
 

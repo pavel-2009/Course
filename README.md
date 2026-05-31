@@ -442,6 +442,8 @@ dig @127.0.0.1 nas.home
 
 ## Day 20 — iptables / nftables
 
+# Already done
+
 ### Задание
 Разрешить только:
 - SSH

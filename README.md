@@ -479,6 +479,8 @@ dig @127.0.0.1 nas.home
 
 ## Day 23 — SSH Hardening
 
+# Already done
+
 ### Темы
 - SSH keys
 - Fail2Ban

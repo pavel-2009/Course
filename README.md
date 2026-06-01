@@ -468,6 +468,8 @@ dig @127.0.0.1 nas.home
 
 ## Day 22 — WireGuard VPN
 
+# Already done
+
 ### Задание
 Полная настройка:
 - сервера;

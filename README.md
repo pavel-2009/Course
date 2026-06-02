@@ -490,10 +490,58 @@ dig @127.0.0.1 nas.home
 
 ## Day 24 — Wireshark
 
+# Already done
+
 ### Задание
 Разобрать:
 - TCP handshake;
 - HTTP traffic.
+
+# CheetSheet
+
+```bash
+# Записать вообще весь трафик на порту 80 в файл (без вывода на экран)
+sudo tcpdump -i any port 80 -w dump.pcap
+
+# Ловить только трафик между твоим домашним ПК и сервером (подставь свой IP)
+sudo tcpdump -i any host ТВОЙ_ДОМАШНИЙ_IP -w load_test.pcap
+
+# Читать живой HTTP-трафик прямо на экране (без сохранения в файл)
+sudo tshark -i any -Y "http" -T fields -e http.request.method -e http.request.uri -e http.response.code
+
+# 1. Поиск потерь пакетов (Сеть тормозит/моргает)
+tshark -r dump.pcap -Y "tcp.analysis.retransmission"
+
+# 2. Поиск Zero Window (Python/Nginx завис, буфер Linux переполнен)
+tshark -r dump.pcap -Y "tcp.analysis.zero_window"
+
+# 3. Поиск жестких разрывов соединения (Файрвол или падение процессов)
+tshark -r dump.pcap -Y "tcp.flags.reset == 1"
+
+# 4. Показать только код ответа сервера и URI запроса
+tshark -r dump.pcap -Y "http" -T fields -e http.request.uri -e http.response.code
+
+# 5. Собрать переписку клиента и сервера в чистый текст (TCP Stream 0)
+tshark -r dump.pcap -q -z follow,tcp,ascii,0
+
+# СИМУЛЯЦИЯ НАГРУЗКИ ДЛЯ СЕРВЕРА
+
+# Включить задержку 100мс и ломать (терять) 10% случайных пакетов
+sudo tc qdisc add dev eth0 root netem delay 100ms loss 10%
+
+# Изменить правила на лету (например, увеличить потери до 30%)
+sudo tc qdisc change dev eth0 root netem loss 30%
+
+# ПОЧИНИТЬ СЕТЬ (Удалить все искусственные ограничения) - ВАЖНО!
+sudo tc qdisc del dev eth0 root
+
+# Посмотреть текущие ограничения на сетевой карте
+tc qdisc show dev eth0
+
+# Применяет блокировку, ждет 60 секунд и полностью очищает правила iptables
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP; sleep 60; sudo iptables -F
+
+```
 
 ---
 

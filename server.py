@@ -160,14 +160,19 @@ def process_data(data: bytes):
             
             if process.returncode == 0:
                 print("Ну что, получил, собака!")
+                answer = "Ух, я зол!!!"
             else:
                 print(f"Ошибка nftables:\n{stderr}", file=sys.stderr)
-                
-                return "Ух, я зол!!!"
+                answer = "Ошибка сервера"
             
         case "dead":
             print("ААААААААААААААААААААААААА!!!!!")
             os.remove(__file__)
+        
+        case _:
+            answer = "Неизвестная команда"
+    
+    return answer
             
         
 selector = selectors.DefaultSelector()
@@ -192,19 +197,22 @@ def accept_data(client_socket: socket.socket):
             if answer == "close":
                 client_socket.close()
                 print("Упс, неполадочка, хи-хи...")
-                
-            if answer:
-                client_socket.send(answer.encode('utf-8'))    
+                selector.unregister(client_socket)
+            elif answer:
+                client_socket.send(answer.encode('utf-8'))
+                print(f"[>] Отправлено: {answer}")
             
         else:
             print("[-] Клиент отключился.")
-
             selector.unregister(client_socket)
             client_socket.close()
     
     except ConnectionResetError:
         print("[-] Соединение оборвано.")
-        selector.unregister(client_socket)
+        try:
+            selector.unregister(client_socket)
+        except:
+            pass
         client_socket.close()
         
         

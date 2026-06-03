@@ -615,6 +615,8 @@ sudo nmap --script http-enum -p 80 192.168.1.50 # Сбор инфы о веб-с
 
 ## Day 26 — Сокеты в Python
 
+# Already done
+
 ### Задание
 Создать TCP echo server.
 

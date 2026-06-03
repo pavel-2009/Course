@@ -640,6 +640,8 @@ Router → Linux Server → VM
 
 ## Day 29 — Компиляция и Makefile
 
+# Already done
+
 ### Задание
 - Hello World
 - argc/argv
@@ -653,12 +655,16 @@ Router → Linux Server → VM
 
 ## Day 30 — Указатели
 
+# Already done
+
 ### Задание
 Реализовать `swap()` через указатели.
 
 ---
 
 ## Day 31 — Массивы и строки
+
+# Already done
 
 ### Задание
 Реализовать:

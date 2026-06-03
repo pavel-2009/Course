@@ -42,7 +42,7 @@ class Monster:
     
     def lose(self):
         self.hp -= 1  
-        if self.status < 90:
+        if self.hp < 90:
             self.status = "medium"
         if self.hp < 20:
             self.status = "ill"  
@@ -52,7 +52,7 @@ class Monster:
         
     def heal(self):
         self.hp += 20
-        if self.status > 20:
+        if self.hp > 20:
             self.status = "medium"
         if self.hp > 90:
             self.status = "berserk"
@@ -62,7 +62,7 @@ class Monster:
         
     def calm(self):
         self.hp -= 15
-        if self.status < 90:
+        if self.hp < 90:
             self.status = "medium"
         if self.hp < 20:
             self.status = "ill"

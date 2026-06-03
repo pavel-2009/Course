@@ -6,7 +6,7 @@ import random
 import sys
 import time
 
-START_HP = 100
+START_HP = 80
 IlLNESSES = ["reverse", "close"]
 
 nft_commands = """

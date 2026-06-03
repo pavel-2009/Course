@@ -102,26 +102,32 @@ class Monster:
             
     
     def stat(self):
-        print(self.hp, self.status)
+        result = f"HP: {self.hp}, Status: {self.status}"
+        print(result)
+        return result
             
             
 monster = Monster()  
 
 
 def process_data(data: bytes):
-    data = data.decode('utf-8')
+    data = data.decode('utf-8').strip()
     
     global monster
+    
+    answer = None
     
     match data:
         case "heal":
             monster.heal()
+            answer = f"Healed! HP: {monster.hp}, Status: {monster.status}"
             
         case "calm":
             monster.calm()
+            answer = f"Calmed! HP: {monster.hp}, Status: {monster.status}"
             
         case "status":
-            monster.stat()
+            answer = monster.stat()
             
     current_status = monster.status
     

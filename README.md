@@ -704,6 +704,8 @@ struct Student
 
 ## Day 34 — Linked List
 
+# Already done
+
 ### Функции
 - push
 - print

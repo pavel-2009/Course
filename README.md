@@ -677,6 +677,8 @@ Router → Linux Server → VM
 
 ## Day 32 — Динамическая память
 
+# Already done
+
 ### Темы
 ```c
 malloc
@@ -689,6 +691,8 @@ free
 ---
 
 ## Day 33 — Структуры
+
+# Already done
 
 ### Задание
 ```c

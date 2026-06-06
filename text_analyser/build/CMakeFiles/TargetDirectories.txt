@@ -1,0 +1,3 @@
+D:/ITWork/Course/text_analyser/build/CMakeFiles/text_stat.dir
+D:/ITWork/Course/text_analyser/build/CMakeFiles/edit_cache.dir
+D:/ITWork/Course/text_analyser/build/CMakeFiles/rebuild_cache.dir

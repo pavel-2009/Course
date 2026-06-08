@@ -1,5 +1,6 @@
 #pragma once
 
+#include "bank_account.h"
 #include <string>
 #include <iostream>
 
@@ -15,11 +16,14 @@ private:
     std::string transaction_id;
     TransactionType type;
     double amount;
-    std::string timestamp; // Для простоты пока оставим строкой
+    std::string timestamp;
     bool is_success;
 
+    BankAccount* from_account;
+    BankAccount* to_account;
+
 public:
-    Transaction(const std::string& id, TransactionType t, double amt, const std::string& time);
+    Transaction(const std::string& id, TransactionType t, double amt, const std::string& time, BankAccount* from_acc, BankAccount* to_acc);
 
     ~Transaction();
 

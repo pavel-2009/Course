@@ -1,36 +1,39 @@
 #include "bank_account.h"
 #include "user.h"
+#include "transaction.h"
 #include <iostream>
 #include <string>
 #include <vector>
 
 
 int main() {
-    BankAccount myAcc("TX-100200", "USD", 500.0);
-    myAcc.deposit(150.0);
-    myAcc.withdraw(50.0);
-    myAcc.print_history();
-    
-    // Создаем пользователя
-    User user1("USR-9921", "Alex Marconi");
+    User user1("USR-01", "Alex");
+    User user2("USR-02", "John");
 
-    // Открываем ему два счета
-    user1.open_account("ACC-USD-001", "USD", 1000.0);
-    user1.open_account("ACC-EUR-002", "EUR", 500.0);
+    user1.open_account("ACC-USD-01", "USD", 1000.0);
+    user2.open_account("ACC-USD-02", "USD", 100.0);
 
-    // Выводим инфо
-    user1.print_user_info();
+    // Ищем счета в памяти
+    BankAccount* alex_acc = user1.find_account("ACC-USD-01");
+    BankAccount* john_acc = user2.find_account("ACC-USD-02");
 
-    // Пытаемся найти счет и провести операцию
-    BankAccount* myUsdAcc = user1.find_account("ACC-USD-001");
-    if (myUsdAcc != nullptr) {
-        std::cout << "\n[System] Account found! Making operations...\n";
-        myUsdAcc->withdraw(250.0);
-        myUsdAcc->deposit(50.0);
-        myUsdAcc->print_history();
-    } else {
-        std::cout << "Account not found!\n";
+    if (alex_acc && john_acc) {
+        // Создаем транзакцию перевода 300 USD от Алекса к Джону
+        Transaction tx("TX-9999", TransactionType::TRANSFER, 300.0, "2026-06-08 12:00", alex_acc, john_acc);
+        
+        std::cout << "Executing transfer...\n";
+        if (tx.execute()) {
+            std::cout << "Success!\n";
+        } else {
+            std::cout << "Failed!\n";
+        }
+
+        // Проверяем новые балансы и истории
+        user1.print_user_info();
+        user2.print_user_info();
+        
+        std::cout << "\n--- Detailed TX Info ---\n";
+        tx.print();
     }
-
     return 0;
 }

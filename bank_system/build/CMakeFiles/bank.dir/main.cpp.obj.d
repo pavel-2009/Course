@@ -152,4 +152,5 @@ CMakeFiles/bank.dir/main.cpp.obj: D:\ITWork\Course\bank_system\main.cpp \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_vector.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/vector.tcc \
- D:\ITWork\Course\bank_system\user.h
+ D:\ITWork\Course\bank_system\user.h \
+ D:\ITWork\Course\bank_system\transaction.h

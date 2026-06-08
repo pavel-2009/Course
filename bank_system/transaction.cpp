@@ -14,44 +14,44 @@ Transaction::~Transaction() {
     
 };
 
-void Transaction::execute() {
+bool Transaction::execute() {
     if (type == TransactionType::TRANSFER) {
         if (from_account == nullptr || to_account == nullptr) {
-            return;
+            return false;
         };
 
         bool withdraw_ok = from_account->withdraw(amount);
 
         if (!withdraw_ok) {
-            return;
+            return false;
         };
 
         bool deposit_ok = to_account->deposit(amount);
 
         if (!deposit_ok) {
-            return;
+            return false;
         };
 
         is_success = true;
-        return;
+        return true;
     } else if (type == TransactionType::DEPOSIT) {
         bool deposit_ok = to_account->deposit(amount);
 
         if (!deposit_ok) {
-            return;
+            return false;
         };
 
         is_success = true;
-        return;
+        return true;
     } else if (type == TransactionType::WITHDRAW) {
         bool withdraw_ok = from_account->withdraw(amount);
 
         if (!withdraw_ok) {
-            return;
+            return true;
         };
 
         is_success = true;
-        return;
+        return true;
     }
 };
 

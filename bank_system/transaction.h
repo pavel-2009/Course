@@ -27,7 +27,7 @@ public:
 
     ~Transaction();
 
-    void execute();
+    bool execute();
 
     std::string get_id() const;
     bool get_status() const;

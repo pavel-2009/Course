@@ -49,7 +49,7 @@ FileWrapper::FileWrapper(FileWrapper&& other) noexcept {
     other.file_handle = nullptr;
 };
 
-FileWrapper& FileWrapper::operator=(FileWrapper&& other) noexcept {
+FileWrapper& FileWrapper::FileWrapper::operator=(FileWrapper&& other) noexcept {
     std::cout << "[MOVE] Move Assignment Operator: Releasing old and stealing new handle..." << std::endl;
 
     if (this != &other) {

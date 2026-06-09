@@ -1,0 +1,3 @@
+D:/ITWork/Course/raii/build/CMakeFiles/raii.dir
+D:/ITWork/Course/raii/build/CMakeFiles/edit_cache.dir
+D:/ITWork/Course/raii/build/CMakeFiles/rebuild_cache.dir

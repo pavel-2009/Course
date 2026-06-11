@@ -1,0 +1,3 @@
+D:/ITWork/Course/word_counter/build/CMakeFiles/word_counter.dir
+D:/ITWork/Course/word_counter/build/CMakeFiles/edit_cache.dir
+D:/ITWork/Course/word_counter/build/CMakeFiles/rebuild_cache.dir

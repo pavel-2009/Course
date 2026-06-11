@@ -5,5 +5,5 @@
 class TextSanitizer
 {
 public:
-    static std::string sanitize(const std::string word);
+    static std::string sanitize(std::string word);
 };

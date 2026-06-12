@@ -1,2 +1,0 @@
-Hello from A
-Now File B owns this file!

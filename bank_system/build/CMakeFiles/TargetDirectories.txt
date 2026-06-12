@@ -1,3 +1,0 @@
-D:/ITWork/Course/bank_system/build/CMakeFiles/bank.dir
-D:/ITWork/Course/bank_system/build/CMakeFiles/edit_cache.dir
-D:/ITWork/Course/bank_system/build/CMakeFiles/rebuild_cache.dir

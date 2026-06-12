@@ -1,3 +1,0 @@
-D:/ITWork/Course/task_manager/build/CMakeFiles/task_manager.dir
-D:/ITWork/Course/task_manager/build/CMakeFiles/edit_cache.dir
-D:/ITWork/Course/task_manager/build/CMakeFiles/rebuild_cache.dir

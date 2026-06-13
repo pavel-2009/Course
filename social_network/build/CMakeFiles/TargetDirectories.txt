@@ -1,3 +1,0 @@
-D:/ITWork/Course/social_network/build/CMakeFiles/soc_net.dir
-D:/ITWork/Course/social_network/build/CMakeFiles/edit_cache.dir
-D:/ITWork/Course/social_network/build/CMakeFiles/rebuild_cache.dir

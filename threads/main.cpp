@@ -10,7 +10,9 @@ int main() {
 
     Executor executor(list);
 
-    executor.calculateMultithread();
+    { 
+        executor.calculateMultithread(); 
+    }
 
     std::cout << "Sum: " << executor.getSum() << std::endl;
     std::cout << "Max: " << executor.getMax() << std::endl;

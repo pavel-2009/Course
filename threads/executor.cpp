@@ -4,6 +4,9 @@
 
 
 void Executor::calculateMultithread() {
-    std::jthread t1(&Executor::findMax, this);
-    std::jthread t2(&Executor::findSum, this);
+    findMaxThread = std::jthread(&Executor::findMax, this);
+    findSumThread = std::jthread(&Executor::findSum, this);
+
+    findMaxThread.join();
+    findSumThread.join();
 };

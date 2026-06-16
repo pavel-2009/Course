@@ -11,7 +11,7 @@ class User
 private:
     std::string user_id;
     std::string name;
-    std::vector<BankAccount> accounts;
+    std::vector<std::unique_ptr<BankAccount>> accounts;
 
 public:
     User(const std::string& id, const std::string& username);

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
 
 
 int main() {
@@ -35,5 +36,44 @@ int main() {
         std::cout << "\n--- Detailed TX Info ---\n";
         tx.print();
     }
+
+    // Проверяем работу безопасных методов в многопоточном режиме
+    std::cout << "\n--- Testing thread-safe operations ---\n";
+    std::cout << "Initial balance for Alex's account: " << alex_acc->get_balance() << " " << alex_acc->get_currency() << std::endl;
+    {
+        std::jthread t1([&]() {
+            for (int i = 0; i < 5; i++) {
+                alex_acc->deposit_safe(100);
+            }
+        });
+
+        std::jthread t2([&]() {
+            for (int i = 0; i < 5; i++) {
+                alex_acc->withdraw_safe(50);
+            }
+        });
+    }
+
+    std::cout << "Final balance for Alex's account: " << alex_acc->get_balance() << " " << alex_acc->get_currency() << std::endl;
+
+    // Проверяем работу небезопасных методов в многопоточном режиме (для демонстрации возможных проблем)
+    std::cout << "\n--- Testing non-thread-safe operations (may cause issues) ---\n";
+    std::cout << "Initial balance for Alex's account: " << alex_acc->get_balance() << " " << alex_acc->get_currency() << std::endl;
+    {
+        std::jthread t3([&]() {
+            for (int i = 0; i < 5; i++) {
+                alex_acc->deposit(100);
+            }
+        });
+
+        std::jthread t4([&]() {
+            for (int i = 0; i < 5; i++) {
+                alex_acc->withdraw(50);
+            }
+        });
+    }
+
+    std::cout << "Final balance for Alex's account: " << alex_acc->get_balance() << " " << alex_acc->get_currency() << std::endl;
+
     return 0;
 }

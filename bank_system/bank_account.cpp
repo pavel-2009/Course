@@ -13,7 +13,7 @@ BankAccount::BankAccount(const std::string& acc_num, const std::string& curr, do
 
     std::string transaction = "[INFO] Account " + account_number + " opened. Initial balance: " + std::to_string(balance) + " " + currency + ".";
 
-    transaction_history.push_back(transaction);
+    transaction_history.push_back(std::make_unique<std::string>(transaction));
 };
 
 BankAccount::~BankAccount() {
@@ -30,7 +30,7 @@ bool BankAccount::deposit(double amount) {
     std::string logMessage = "[DEPOSIT] +" + std::to_string(amount) + " " + currency 
                              + ". New balance: " + std::to_string(balance) + " " + currency;
 
-    transaction_history.push_back(logMessage);
+    transaction_history.push_back(std::make_unique<std::string>(logMessage));
 
     return true;
 };
@@ -44,9 +44,20 @@ bool BankAccount::withdraw(double amount) {
 
     std::string logMessage = "[WITHDRAW] -" + std::to_string(amount) + " " + currency 
                              + ". New balance: " + std::to_string(balance) + " " + currency;
-    transaction_history.push_back(logMessage);
+    transaction_history.push_back(std::make_unique<std::string>(logMessage));
 
     return true;
+};
+
+// Thread-safe versions of deposit and withdraw methods
+bool BankAccount::deposit_safe(double amount) {
+    std::lock_guard<std::mutex> lock(mtx);
+    return deposit(amount);
+};
+
+bool BankAccount::withdraw_safe(double amount) {
+    std::lock_guard<std::mutex> lock(mtx);
+    return withdraw(amount);
 };
 
 double BankAccount::get_balance() const {
@@ -65,7 +76,7 @@ void BankAccount::print_history() const {
     std::cout << "\n=== Transaction History for Account: " << account_number << " ===\n";
 
     for (const auto& log: transaction_history) {
-        std::cout << log << std::endl;
+        std::cout << *log << std::endl;
     };
 
     std::cout << "========================================================\n";

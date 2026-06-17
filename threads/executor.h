@@ -27,17 +27,16 @@ class Executor {
                 return;
             }
 
-            max = list[0];
+            int local_max = list[0];
 
             for (int i = 0; i < list.size(); i++) {
-                std::lock_guard<std::mutex> lock(mtx);
-
-                std::cout << "Process: findMax, index: " << i;
-                std::cout << "\nMax: " << max << std::endl;
-                if (list[i] > max) {
-                    max = list[i];
+                if (list[i] > local_max) {
+                    local_max = list[i];
                 }
             }
+
+            max = local_max;
+
             {
                 std::lock_guard<std::mutex> lock(mtx);
                 maxCalculated = true;
@@ -51,15 +50,25 @@ class Executor {
                 cv.wait(lock, [this] { return maxCalculated; });
             }
 
-            sum = 0;
+            long long local_sum1 = 0;
+            long long local_sum2 = 0;
 
-            for (int i = 0; i < list.size(); i++) {
-                std::lock_guard<std::mutex> lock(mtx);
+            // Делим список на две части и вычисляем сумму в двух потоках
+            auto mid = list.size() / 2;
+            std::jthread sumThread1([this, mid, &local_sum1]() {
+                for (size_t i = 0; i < mid; ++i) {
+                    local_sum1 += list[i];
+                }
+            });
+            std::jthread sumThread2([this, mid, &local_sum2]() {
+                for (size_t i = mid; i < list.size(); ++i) {
+                    local_sum2 += list[i];
+                }
+            });
 
-                std::cout << "Process: findSum, index: " << i;
-                sum += list[i];
-                std::cout << "\nSum: " << sum << std::endl;
-            }
+            sumThread1.join();
+            sumThread2.join();
+            sum = local_sum1 + local_sum2;
         };
 
     public:

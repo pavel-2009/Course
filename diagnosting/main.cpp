@@ -15,9 +15,13 @@ void fastFunction() {
 }
 
 int main() {
-    for (int i = 0; i < 10; ++i) {
-        slowFunction();  // 90% времени здесь
+    for (int i = 0; i < 1000; ++i) {
+        slowFunction();
     }
-    fastFunction();      // 10% времени здесь
+    
+    for (int i = 0; i < 1000; ++i) {
+        fastFunction();
+    }
+
     return 0;
 }

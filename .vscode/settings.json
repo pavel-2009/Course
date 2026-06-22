@@ -58,4 +58,5 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   // Добавляем версию C++23 для компилятора MSVC
   "C_Cpp_Runner.msvcCppStandard": "c++23",
+  "cmake.sourceDirectory": "D:/ITWork/Course/bank_system",
 }

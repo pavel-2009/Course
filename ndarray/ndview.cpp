@@ -55,18 +55,19 @@ class NDView {
         }
 
         // Реализовываем получения отдельных строк с NDView
-        NDView<T> row(size_t row_index) {
+        NDView<T> slice(size_t row_index) {
+            if (shape_.size() != 2) {
+                throw std::invalid_argument("Slice is only defined for 2D arrays.");
+            }
             if (row_index >= shape_[0]) {
-                throw std::out_of_range("Row index out of bounds");
+                throw std::out_of_range("Row index out of bounds.");
             }
 
-            // Создаем новый NDView для строки
-            std::vector<size_t> new_shape(shape_.begin() + 1, shape_.end());
-            std::vector<size_t> new_strides(strides_.begin() + 1, strides_.end());
+            T* new_data = data_ + row_index * strides_[0];
+            std::vector<size_t> new_shape = {shape_[1]};
+            std::vector<size_t> new_strides = {strides_[1]};
 
-            // Получаем стартовый и конечный указатели для строки
-            T* row_data = data_ + row_index * strides_[0];
-            return NDView<T>(row_data, new_shape, new_strides);
+            return NDView<T>(new_data, new_shape, new_strides);
         }
 
 };

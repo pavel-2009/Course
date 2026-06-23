@@ -31,7 +31,7 @@ class NDArray {
 
         const std::vector<size_t>& strides() const {}
 
-        const size_t size() const {}
+        size_t size() const {}
 
         void fill(const T& value) {}
 
@@ -41,6 +41,30 @@ class NDArray {
 
         template<typename... Args>
         const T& operator()(Args... indices) const {}
+
+        template<typename... Args>
+        T& at(Args... indices) {}
+
+        void reshape(const std::vector<size_t>& new_shape) {}
+
+        NDArray<T> operator+(const NDArray<T>& other) const {}
+
+        NDArray<T> operator-(const NDArray<T>& other) const {}
+
+        NDArray<T> operator*(const T& scalar) const {}
+
+        NDArray<T> operator/(const T& scalar) const {}
+
+        T sum() const {}
+
+        double mean() const {}
+
+        template<typename Func>
+        void apply(Func func) {}
+
+        NDArray<T> matmul(const NDArray<T>& other) const {}
+
+        NDView<T> transpose() const {}
 };
 
 #endif // NDARRAY_H

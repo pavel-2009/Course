@@ -33,7 +33,7 @@ class NDView {
         const T& operator()(Args... indices) const {}
 
         // Метод для получения view строки
-        NDView<T> row(size_t row_index) {}
+        NDView<T> slice(size_t row_index) {}
 };
 
 #endif // NDVIEW_H

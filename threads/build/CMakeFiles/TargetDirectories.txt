@@ -1,3 +1,0 @@
-D:/ITWork/Course/threads/build/CMakeFiles/threads.dir
-D:/ITWork/Course/threads/build/CMakeFiles/edit_cache.dir
-D:/ITWork/Course/threads/build/CMakeFiles/rebuild_cache.dir

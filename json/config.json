@@ -1,0 +1,5 @@
+{
+    "batch_size": 4,
+    "model_name": "GPT-5",
+    "use_gpu": true
+}

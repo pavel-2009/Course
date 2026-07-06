@@ -1,0 +1,5 @@
+[2026-07-06 11:34:57] [INFO] [136238468908864] Application started.
+[2026-07-06 11:34:57] [DEBUG] [136238468908864] Debugging information.
+[2026-07-06 11:34:57] [WARNING] [136238468908864] This is a warning message.
+[2026-07-06 11:34:57] [ERROR] [136238468908864] An error occurred.
+[2026-07-06 11:34:57] [FATAL] [136238468908864] Fatal error! Application will terminate.

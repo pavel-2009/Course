@@ -18,6 +18,8 @@ Logger::~Logger() {
         stop_ = true;
     }
 
+    log_file_.flush();
+
     cv_.notify_all();
     worker_.join();
 }
@@ -26,18 +28,17 @@ Logger::~Logger() {
 void Logger::workerLoop() {
 
     while(true) {
-        {
-            std::unique_lock<std::mutex> guard(lock_);
-            cv_.wait(guard, [this]() { return !log_queue_.empty() || stop_; });
-        }
-
-        if (stop_ && log_queue_.empty()) {
-            break;
-        }
-
+        
         LogMessage message;
+
         {
-            std::lock_guard<std::mutex> guard(lock_);
+            std::unique_lock<std::mutex> lock(lock_);
+            cv_.wait(lock, [this]() { return !log_queue_.empty() || stop_; });
+
+            if (stop_ && log_queue_.empty()) {
+                break;
+            }
+
             message = log_queue_.front();
             log_queue_.pop();
         }

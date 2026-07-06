@@ -36,6 +36,9 @@ class Logger {
         Logger(const Logger&) = delete;
         Logger& operator=(const Logger&) = delete;
 
+        Logger(Logger&&) = delete;
+        Logger& operator=(Logger&&) = delete;
+
         void log(LogLevel level, const std::string& text);
 
 };

@@ -1,3 +1,0 @@
-/home/pavel09112009/Course/config/build/CMakeFiles/config_demo.dir
-/home/pavel09112009/Course/config/build/CMakeFiles/edit_cache.dir
-/home/pavel09112009/Course/config/build/CMakeFiles/rebuild_cache.dir

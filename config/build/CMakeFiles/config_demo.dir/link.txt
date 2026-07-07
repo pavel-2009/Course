@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/config_demo.dir/main.cpp.o CMakeFiles/config_demo.dir/config.cpp.o -o config_demo 

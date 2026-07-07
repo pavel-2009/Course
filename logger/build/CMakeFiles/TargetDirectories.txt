@@ -1,3 +1,0 @@
-/home/pavel09112009/Course/logger/build/CMakeFiles/Logger.dir
-/home/pavel09112009/Course/logger/build/CMakeFiles/edit_cache.dir
-/home/pavel09112009/Course/logger/build/CMakeFiles/rebuild_cache.dir

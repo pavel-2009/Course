@@ -18,7 +18,7 @@ class Config {
         std::filesystem::path log_file_;
 
     public:
-        Config(std::filesystem::path config_file) {};
+        Config(std::filesystem::path config_file);
 
         ~Config() {};
 
@@ -31,6 +31,16 @@ class Config {
         std::string host() const { return host_; };
         size_t port() const { return port_; };
         size_t workers() const { return workers_; };
-        LogLevel logLevel() const { return log_level_; };
+        std::string logLevel() const {
+            switch (log_level_) {
+                case LogLevel::Trace: return "trace";
+                case LogLevel::Debug: return "debug";
+                case LogLevel::Info: return "info";
+                case LogLevel::Warning: return "warning";
+                case LogLevel::Error: return "error";
+                case LogLevel::Fatal: return "fatal";
+                default: return "unknown";
+            }
+        };
         std::filesystem::path logFile() const { return log_file_; };
 };

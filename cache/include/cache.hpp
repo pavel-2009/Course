@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include <stdexcept>
+#include <mutex>
 
 
 template<typename T, typename U>
@@ -12,6 +13,7 @@ class Cache {
         size_t capacity;
         std::list<std::pair<T, U>> items;
         std::unordered_map<T, typename std::list<std::pair<T, U>>::iterator> item_map;
+        std::mutex mtx;
 
     public:
         Cache(size_t capacity) : capacity(capacity) {}
@@ -21,10 +23,12 @@ class Cache {
         Cache(const Cache&) = delete;
         Cache& operator=(const Cache&) = delete;
 
-        Cache(Cache&&) = delete;
-        Cache& operator=(Cache&&) = delete;
+        Cache(Cache&&) = default;
+        Cache& operator=(Cache&&) = default;
 
         U get(const T& key) {
+
+            std::lock_guard<std::mutex> lock(mtx);
 
             auto link = item_map.find(key);
             if (link == item_map.end()) {
@@ -39,10 +43,13 @@ class Cache {
             items.splice(items.begin(), items, item);
 
             return value;
+
         }
 
         void put(const T& key, const U& value) {
     
+            std::lock_guard<std::mutex> lock(mtx);
+
             auto link = item_map.find(key);
             if (link != item_map.end()) {
                 auto item = link->second;
@@ -64,10 +71,12 @@ class Cache {
         }
 
         bool contains(const T& key) const {
+            std::lock_guard<std::mutex> lock(mtx);
             return item_map.find(key) != item_map.end();
         }
 
         void erase(const T& key) {
+            std::lock_guard<std::mutex> lock(mtx);
             auto link = item_map.find(key);
             if (link != item_map.end()) {
                 auto item = link->second;
@@ -78,14 +87,18 @@ class Cache {
         }
 
         void clear() {
+            std::lock_guard<std::mutex> lock(mtx);
             items.clear();
             item_map.clear();
         }
 
         size_t size() const {
+            std::lock_guard<std::mutex> lock(mtx);
             return items.size();
-        }
-        bool empry() const {
+        };
+
+        bool empty() const {
+            std::lock_guard<std::mutex> lock(mtx);
             return items.empty();
-        }
+        };
 };

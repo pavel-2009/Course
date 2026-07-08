@@ -1,24 +1,31 @@
 #include "cache.hpp"
 
 #include <iostream>
+#include <thread>
 
 
 int main() {
     Cache<std::string, int> cache(3);
 
-    cache.put("one", 1);
-    cache.put("two", 2);
-    cache.put("three", 3);
+    std::jthread t1([&cache]() {
+        for (int i = 0; i < 5; ++i) {
+            cache.put("key" + std::to_string(i), i);
+            std::cout << "Thread 1: Put key" << i << " with value " << i << std::endl;
+        }
+    });
+    std::jthread t2([&cache]() {
+        for (int i = 0; i < 5; ++i) {
+            try {
+                int value = cache.get("key" + std::to_string(i));
+                std::cout << "Thread 2: Got value " << value << " for key" << i << std::endl;
+            } catch (const std::out_of_range& e) {
+                std::cout << "Thread 2: Key" << i << " not found in cache." << std::endl;
+            }
+            // std::this_thread::sleep_for(std::chrono::milliseconds(150));
+        }
+    });
 
-    if (cache.contains("two")) {
-        std::cout << "Key 'two' found with value: " << cache.get("two") << std::endl;
-    }
-
-    cache.put("four", 4); // This should evict the least recently used item
-
-    if (!cache.contains("one")) {
-        std::cout << "Key 'one' has been evicted." << std::endl;
-    }
-
+    t1.join();
+    t2.join();
     return 0;
 }
